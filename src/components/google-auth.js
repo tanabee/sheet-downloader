@@ -1,5 +1,6 @@
 import React from 'react';
 import config from '../utils/config.json'
+import Button from '@material-ui/core/Button';
 
 export default class GoogleAuth extends React.Component {
   constructor(props) {
@@ -46,16 +47,16 @@ export default class GoogleAuth extends React.Component {
       return null;
     } else if (this.state.isSignedIn) {
       return (
-        <button onClick={this.onSignOutClick}>Sign Out</button>
+        <Button color="inherit" onClick={this.onSignOutClick}>Sign Out</Button>
       );
     } else {
       return (
-        <button onClick={this.onSignInClick}>Sign In With Google</button>
+        <Button color="inherit" onClick={this.onSignInClick}>Sign In With Google</Button>
       );
     }
   }
 
   render() {
-    return <div>{this.renderAuthButton()}</div>;
+    return this.renderAuthButton();
   }
 }

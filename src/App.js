@@ -1,6 +1,6 @@
 import React from 'react';
 import List from './components/list.js'
-import GoogleAuth from './components/google-auth.js'
+import Navigation from './components/navigation-bar.js'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -33,7 +33,7 @@ export default class App extends React.Component {
   render() {
     return (
       <>
-        <GoogleAuth
+        <Navigation
           onSignedIn={() => this.onSignedIn()}
         />
         <List
