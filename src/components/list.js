@@ -11,21 +11,20 @@ export default class List extends React.Component {
 
     if (values.length === 0) return <></>;
 
-    // TODO: key に index 指定してる部分の修正
     const headerValues = values.shift();
-    const header = headerValues.map((value, index) => {
+    const header = headerValues.map(value => {
       return (
-        <TableCell key={index}>{value}</TableCell>
+        <TableCell>{value}</TableCell>
       );
     });
 
-    const list = values.map((row, index) => {
-      const rowValues = row.map((value, index) => {
+    const list = values.map(row => {
+      const rowValues = row.map(value => {
         return (
-          <TableCell key={index}>{value}</TableCell>
+          <TableCell>{value}</TableCell>
         );
       });
-      return <TableRow key={row}>{rowValues}</TableRow>;
+      return <TableRow>{rowValues}</TableRow>;
     });
 
     return (
