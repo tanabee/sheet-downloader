@@ -1,4 +1,5 @@
 import React from 'react';
+import config from '../utils/config.json'
 
 export default class GoogleAuth extends React.Component {
   constructor(props) {
@@ -9,18 +10,13 @@ export default class GoogleAuth extends React.Component {
   }
 
   componentDidMount() {
-		const CLIENT_ID = '42344234273-9fumaoakru5qon3katr77h7moenjn5jp.apps.googleusercontent.com';
-		const SCOPE = 'https://www.googleapis.com/auth/spreadsheets.readonly';
-    const DISCOVERY_DOCS = ['https://sheets.googleapis.com/$discovery/rest?version=v4'];
-    const API_KEY = 'AIzaSyDe9ppD4WsvWPi6kDIvvR9Cjo4stOBUKm0';
-
     window.gapi.load("client:auth2", () => {
       window.gapi.client
         .init({
-          apiKey: API_KEY,
-          clientId: CLIENT_ID,
-          discoveryDocs: DISCOVERY_DOCS,
-          scope: SCOPE
+          apiKey: config.api_key,
+          clientId: config.client_id,
+          discoveryDocs: config.discovery_docs,
+          scope: config.scope
         })
         .then(() => {
           this.auth = window.gapi.auth2.getAuthInstance();
