@@ -1,15 +1,14 @@
 import React from 'react';
 
 export default class List extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
+    const list = this.props.values.map((row) => {
+      const rowValues = row.join(', ');
+      return (<li>{rowValues}</li>);
+    });
+
     return (
-      <div className="list">
-      TODO: show list
-      </div>
+      <ul className="list">{list}</ul>
     );
   }
 }
