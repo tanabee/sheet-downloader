@@ -17,7 +17,7 @@ export default class App extends React.Component {
   fetchAndShowList = () => {
     window.gapi.client.sheets.spreadsheets.values.get({
       spreadsheetId: '1-zpaIm5Xz_HgB3TqyHkf3JtvYh_JPCtPUiw0oYs9Z5Q',
-      range: 'シート1!A1:E',
+      range: 'A1:Z',
     }).then(response => {
       var range = response.result;
       if (range.values.length > 0) {
