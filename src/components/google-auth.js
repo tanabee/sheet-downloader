@@ -46,15 +46,11 @@ export default class GoogleAuth extends React.Component {
       return null;
     } else if (this.state.isSignedIn) {
       return (
-        <button onClick={this.onSignOutClick} className="">
-          Sign Out
-        </button>
+        <button onClick={this.onSignOutClick}>Sign Out</button>
       );
     } else {
       return (
-        <button onClick={this.onSignInClick} className="">
-          Sign In With Google
-        </button>
+        <button onClick={this.onSignInClick}>Sign In With Google</button>
       );
     }
   }
