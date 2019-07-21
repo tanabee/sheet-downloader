@@ -38,6 +38,28 @@ export default class App extends React.Component {
     this.setState({values: values});
   };
 
+  downloadJSON = () => {
+    let values = this.state.values.concat();
+
+    if (values.length === 0) return;
+
+    const keys = values.shift();
+    const json = values.map(value => {
+      var obj = {};
+      value.forEach(function(element, i) {
+        obj[keys[i]] = element;
+      });
+      return obj;
+    });
+    const jsonString = JSON.stringify(json);
+    const file = new Blob([jsonString], {type: 'application/json'});
+    const element = document.createElement("a");
+    element.href = URL.createObjectURL(file);
+    element.download = "sheet.json";
+    document.body.appendChild(element);
+    element.click();
+  }
+
   render() {
     return (
       <>
@@ -45,6 +67,7 @@ export default class App extends React.Component {
           onSignedIn={() => this.onSignedIn()}
           onChangeSearchBarValue={this.onChangeSearchBarValue}
         />
+        <button onClick={this.downloadJSON}>Download as JSON</button>
         <List
           values={this.state.values}
         />
