@@ -2,12 +2,14 @@ import React from 'react';
 import Navigation from './components/navigation-bar.js'
 import DownloadButton from './components/download-button.js'
 import List from './components/list.js'
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       values: [],
+      loading: false
     };
   }
 
@@ -24,24 +26,31 @@ export default class App extends React.Component {
   }
 
   fetchAndShowList = (spreadsheetId) => {
+    this.setState({ loading: true });
     window.gapi.client.sheets.spreadsheets.values.get({
       spreadsheetId: spreadsheetId || '1-zpaIm5Xz_HgB3TqyHkf3JtvYh_JPCtPUiw0oYs9Z5Q',
       range: 'A1:Z',
     }).then(response => {
       var range = response.result;
       if (range.values.length > 0) {
-        this.setState({values: range.values});
+        this.setState({
+          values: range.values,
+          loading: false
+        });
       }
     });
   }
 
   render() {
+    const progress = this.state.loading ?  <LinearProgress /> : '';
+
     return (
       <>
         <Navigation
           onSignedIn={() => this.onSignedIn()}
           onChangeSearchBarValue={this.onChangeSearchBarValue}
         />
+        { progress }
         <DownloadButton
           values={this.state.values}
         />
