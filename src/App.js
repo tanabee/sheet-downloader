@@ -30,14 +30,10 @@ export default class App extends React.Component {
     }).then(response => {
       var range = response.result;
       if (range.values.length > 0) {
-        this.onFetchSheet(range.values);
+        this.setState({values: range.values});
       }
     });
   }
-
-  onFetchSheet = values => {
-    this.setState({values: values});
-  };
 
   render() {
     return (
