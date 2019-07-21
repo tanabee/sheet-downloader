@@ -11,7 +11,7 @@ const styles = theme => ({
 class DownLoadButton extends React.Component {
 
   downloadJSON = () => {
-    let values = this.state.values.concat();
+    let values = this.props.values.concat();
 
     if (values.length === 0) return;
 
