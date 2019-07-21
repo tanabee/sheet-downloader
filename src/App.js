@@ -1,6 +1,7 @@
 import React from 'react';
 import List from './components/list.js'
 import Navigation from './components/navigation-bar.js'
+import Button from '@material-ui/core/Button';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -67,7 +68,13 @@ export default class App extends React.Component {
           onSignedIn={() => this.onSignedIn()}
           onChangeSearchBarValue={this.onChangeSearchBarValue}
         />
-        <button onClick={this.downloadJSON}>Download as JSON</button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={this.downloadJSON}
+        >
+          Download as JSON
+        </Button>
         <List
           values={this.state.values}
         />
