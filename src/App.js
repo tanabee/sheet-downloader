@@ -6,7 +6,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      values: []
+      values: [],
     };
   }
 
@@ -14,9 +14,17 @@ export default class App extends React.Component {
     this.fetchAndShowList();
   };
 
-  fetchAndShowList = () => {
+  onChangeSearchBarValue = event => {
+    const url = event.target.value;
+    const match = url.match(/^https:\/\/docs.google.com\/spreadsheets\/d\/(.+)\/.*/);
+    if (match) {
+      this.fetchAndShowList(match[1]);
+    }
+  }
+
+  fetchAndShowList = (spreadsheetId) => {
     window.gapi.client.sheets.spreadsheets.values.get({
-      spreadsheetId: '1-zpaIm5Xz_HgB3TqyHkf3JtvYh_JPCtPUiw0oYs9Z5Q',
+      spreadsheetId: spreadsheetId || '1-zpaIm5Xz_HgB3TqyHkf3JtvYh_JPCtPUiw0oYs9Z5Q',
       range: 'A1:Z',
     }).then(response => {
       var range = response.result;
@@ -35,6 +43,7 @@ export default class App extends React.Component {
       <>
         <Navigation
           onSignedIn={() => this.onSignedIn()}
+          onChangeSearchBarValue={this.onChangeSearchBarValue}
         />
         <List
           values={this.state.values}

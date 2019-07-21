@@ -50,10 +50,6 @@ const styles = theme => ({
 
 class Navigation extends React.Component {
 
-  onChange = event => {
-    console.log(event.target.value);
-  }
-
   render() {
     const { classes } = this.props;
 
@@ -75,7 +71,7 @@ class Navigation extends React.Component {
                   input: classes.inputInput,
                 }}
                 inputProps={{ 'aria-label': 'Search' }}
-                onChange={this.onChange}
+                onChange={this.props.onChangeSearchBarValue}
               />
             </div>
             <div className={classes.grow} />
