@@ -23,7 +23,7 @@ class DownLoadButton extends React.Component {
       });
       return obj;
     });
-    const jsonString = JSON.stringify(json);
+    const jsonString = JSON.stringify(json, null, '\t');
     const file = new Blob([jsonString], {type: 'application/json'});
     const element = document.createElement("a");
     element.href = URL.createObjectURL(file);
