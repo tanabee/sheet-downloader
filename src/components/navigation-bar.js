@@ -58,7 +58,7 @@ class Navigation extends React.Component {
         <AppBar position="static">
           <Toolbar>
             <Typography className={classes.title}>
-              Sheet2JSON
+              Sheet Downloader
             </Typography>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
