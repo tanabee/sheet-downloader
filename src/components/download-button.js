@@ -1,17 +1,19 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(1),
   }
-});
+}));
 
-class DownLoadButton extends React.Component {
+export default function DownLoadButton(props) {
 
-  downloadJSON = () => {
-    let values = this.props.values.concat();
+  const classes = useStyles();
+
+  const downloadJSON = () => {
+    let values = props.values.concat();
 
     if (values.length === 0) return;
 
@@ -30,24 +32,18 @@ class DownLoadButton extends React.Component {
     element.download = "sheet.json";
     document.body.appendChild(element);
     element.click();
-  }
-
-  render() {
-    const { classes } = this.props;
-
-    return (
-      <div align="center">
-        <Button
-          className={classes.button}
-          variant="outlined"
-          color="inherit"
-          onClick={this.downloadJSON}
-        >
-          Download as JSON
-        </Button>
-      </div>
-    );
   };
-}
 
-export default withStyles(styles)(DownLoadButton);
+  return (
+    <div align="center">
+      <Button
+        className={classes.button}
+        variant="outlined"
+        color="inherit"
+        onClick={downloadJSON}
+      >
+        Download as JSON
+      </Button>
+    </div>
+  );
+}
