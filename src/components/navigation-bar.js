@@ -1,13 +1,13 @@
 import React from 'react';
+import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
-import { fade, withStyles } from '@material-ui/core/styles';
 import GoogleAuth from './google-auth.js'
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   grow: {
     flexGrow: 1,
   },
@@ -46,41 +46,37 @@ const styles = theme => ({
       width: 300,
     },
   },
-});
+}));
 
-class Navigation extends React.Component {
+export default function Navigation(props) {
 
-  render() {
-    const { classes } = this.props;
+  const classes = useStyles();
 
-    return (
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography className={classes.title}>
-              Sheet Downloader
-            </Typography>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="Type Spreadsheet URL"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                inputProps={{ 'aria-label': 'Search' }}
-                onChange={this.props.onChangeSearchBarValue}
-              />
+  return (
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography className={classes.title}>
+            Sheet Downloader
+          </Typography>
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
             </div>
-            <div className={classes.grow} />
-            <GoogleAuth onSignedIn={() => this.props.onSignedIn()} />
-          </Toolbar>
-        </AppBar>
-      </div>
-    );
-  }
+            <InputBase
+              placeholder="Type Spreadsheet URL"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ 'aria-label': 'Search' }}
+              onChange={props.onChangeSearchBarValue}
+            />
+          </div>
+          <div className={classes.grow} />
+          <GoogleAuth onSignedIn={() => props.onSignedIn()} />
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
 }
-
-export default withStyles(styles)(Navigation);
