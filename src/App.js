@@ -1,13 +1,15 @@
 import React from 'react';
 import Navigation from './components/navigation-bar.js'
 import DownloadButton from './components/download-button.js'
-import List from './components/list.js'
+import Sheet from './components/sheet.js'
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      title: '',
+      tabs: [],
       values: [],
       loading: false
     };
@@ -27,17 +29,29 @@ export default class App extends React.Component {
 
   fetchAndShowList = (spreadsheetId) => {
     this.setState({ loading: true });
-    window.gapi.client.sheets.spreadsheets.values.get({
-      spreadsheetId: spreadsheetId || '1CxgDwe8Mdsi7ohc4oaVucC5c5vXlyZoPNfMdQho1Rl4',
-      range: 'A1:Z',
+    spreadsheetId = spreadsheetId || '1CxgDwe8Mdsi7ohc4oaVucC5c5vXlyZoPNfMdQho1Rl4';
+    window.gapi.client.sheets.spreadsheets.get({
+      spreadsheetId: spreadsheetId
     }).then(response => {
-      var range = response.result;
-      if (range.values.length > 0) {
-        this.setState({
-          values: range.values,
-          loading: false
-        });
-      }
+      const result = response.result;
+      const tabs = result.sheets.map((sheet)=> {
+        return { name: sheet.properties.title };
+      });
+
+      window.gapi.client.sheets.spreadsheets.values.get({
+        spreadsheetId: spreadsheetId,
+        range: 'A1:Z',
+      }).then(response => {
+        var range = response.result;
+        if (range.values.length > 0) {
+          this.setState({
+            title: result.properties.title,
+            tabs: tabs,
+            values: range.values,
+            loading: false
+          });
+        }
+      });
     });
   }
 
@@ -54,7 +68,9 @@ export default class App extends React.Component {
         <DownloadButton
           values={this.state.values}
         />
-        <List
+        <Sheet
+          title={this.state.title}
+          tabs={this.state.tabs}
           values={this.state.values}
         />
       </>
