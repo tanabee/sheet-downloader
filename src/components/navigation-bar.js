@@ -5,11 +5,18 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
+import Code from '@material-ui/icons/Code';
+import Link from '@material-ui/core/Link';
+import Tooltip from '@material-ui/core/Tooltip';
 import GoogleAuth from 'components/google-auth.js'
 
 const useStyles = makeStyles(theme => ({
   grow: {
     flexGrow: 1,
+  },
+  link: {
+    paddingTop: theme.spacing(1),
+    paddingRight: theme.spacing(2),
   },
   search: {
     position: 'relative',
@@ -73,6 +80,16 @@ export default function Navigation(props) {
           />
         </div>
         <div className={classes.grow} />
+        <Tooltip title="GitHub">
+          <Link
+            href='https://github.com/tanabee/sheet-downloader'
+            target='_blank'
+            className={classes.link}
+            color='inherit'
+          >
+            <Code />
+          </Link>
+        </Tooltip>
         <GoogleAuth onSignedIn={() => props.onSignedIn()} />
       </Toolbar>
     </AppBar>
