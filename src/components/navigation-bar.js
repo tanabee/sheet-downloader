@@ -14,9 +14,9 @@ const useStyles = makeStyles(theme => ({
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
+    backgroundColor: fade(theme.palette.common.black, 0.10),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: fade(theme.palette.common.black, 0.15),
     },
     marginRight: theme.spacing(2),
     marginLeft: 0,
@@ -53,30 +53,28 @@ export default function Navigation(props) {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography className={classes.title}>
-            Sheet Downloader
-          </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Type Spreadsheet URL"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'Search' }}
-              onChange={props.onChangeSearchBarValue}
-            />
+    <AppBar color="default">
+      <Toolbar>
+        <Typography className={classes.title}>
+          Sheet Downloader
+        </Typography>
+        <div className={classes.search}>
+          <div className={classes.searchIcon}>
+            <SearchIcon />
           </div>
-          <div className={classes.grow} />
-          <GoogleAuth onSignedIn={() => props.onSignedIn()} />
-        </Toolbar>
-      </AppBar>
-    </div>
+          <InputBase
+            placeholder="Type Spreadsheet URL"
+            classes={{
+              root: classes.inputRoot,
+              input: classes.inputInput,
+            }}
+            inputProps={{ 'aria-label': 'Search' }}
+            onChange={props.onChangeSearchBarValue}
+          />
+        </div>
+        <div className={classes.grow} />
+        <GoogleAuth onSignedIn={() => props.onSignedIn()} />
+      </Toolbar>
+    </AppBar>
   );
 }

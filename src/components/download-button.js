@@ -39,7 +39,7 @@ export default function DownLoadButton(props) {
       <Button
         className={classes.button}
         variant="outlined"
-        color="inherit"
+        color="primary"
         onClick={downloadJSON}
       >
         Download as JSON

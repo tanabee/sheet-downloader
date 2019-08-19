@@ -12,6 +12,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
 const useStyles = makeStyles({
+  root: {
+    marginTop: "80px"
+  },
   tabs: {
     position: "fixed",
     bottom:"0",
@@ -54,7 +57,7 @@ export default function Sheet(props) {
   });
 
   return (
-    <>
+    <div className={classes.root}>
       <Typography>
         {props.title}
       </Typography>
@@ -82,6 +85,6 @@ export default function Sheet(props) {
           {tabs}
         </Tabs>
       </Paper>
-    </>
+    </div>
   );
 }

@@ -47,11 +47,11 @@ export default class GoogleAuth extends React.Component {
       return null;
     } else if (this.state.isSignedIn) {
       return (
-        <Button color="inherit" onClick={this.onSignOutClick}>Sign Out</Button>
+        <Button variant="outlined" onClick={this.onSignOutClick}>Sign Out</Button>
       );
     } else {
       return (
-        <Button color="inherit" onClick={this.onSignInClick}>Sign In With Google</Button>
+        <Button variant="outlined" color="primary" onClick={this.onSignInClick}>Sign In</Button>
       );
     }
   }
