@@ -1,6 +1,5 @@
 import React from 'react';
 import Navigation from './components/navigation-bar.js'
-import DownloadButton from './components/download-button.js'
 import Sheet from './components/sheet.js'
 import LinearProgress from '@material-ui/core/LinearProgress';
 
@@ -65,9 +64,6 @@ export default class App extends React.Component {
           onChangeSearchBarValue={this.onChangeSearchBarValue}
         />
         { progress }
-        <DownloadButton
-          values={this.state.values}
-        />
         <Sheet
           title={this.state.title}
           tabs={this.state.tabs}
