@@ -1,5 +1,5 @@
 import React from 'react';
-import config from '../utils/config.json'
+import config from 'utils/config.json'
 import Button from '@material-ui/core/Button';
 
 export default class GoogleAuth extends React.Component {

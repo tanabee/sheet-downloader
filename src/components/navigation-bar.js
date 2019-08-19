@@ -5,7 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
-import GoogleAuth from './google-auth.js'
+import GoogleAuth from 'components/google-auth.js'
 
 const useStyles = makeStyles(theme => ({
   grow: {

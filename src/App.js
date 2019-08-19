@@ -1,6 +1,6 @@
 import React from 'react';
-import Navigation from './components/navigation-bar.js'
-import Sheet from './components/sheet.js'
+import Navigation from 'components/navigation-bar.js'
+import Sheet from 'components/sheet.js'
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 export default class App extends React.Component {

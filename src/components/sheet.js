@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import DownloadButton from './download-button.js'
+import DownloadButton from 'components/download-button.js'
 import Typography from '@material-ui/core/Typography';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -37,22 +37,22 @@ export default function Sheet(props) {
   const headerValues = values.shift();
   const header = headerValues.map(value => {
     return (
-      <TableCell>{value}</TableCell>
+      <TableCell key={value}>{value}</TableCell>
     );
   });
 
   const list = values.map(row => {
-    const rowValues = row.map(value => {
+    const rowValues = row.map((value, index) => {
       return (
-        <TableCell>{value}</TableCell>
+        <TableCell key={index}>{value}</TableCell>
       );
     });
-    return <TableRow>{rowValues}</TableRow>;
+    return <TableRow key={row[0]}>{rowValues}</TableRow>;
   });
   
   const tabs = props.tabs.map((tab) => {
     return (
-      <Tab label={tab.name} disabled />
+      <Tab key={tab.name} label={tab.name} disabled />
     );
   });
 
