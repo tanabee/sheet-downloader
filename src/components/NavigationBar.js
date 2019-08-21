@@ -8,7 +8,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Code from '@material-ui/icons/Code';
 import Link from '@material-ui/core/Link';
 import Tooltip from '@material-ui/core/Tooltip';
-import GoogleAuth from 'components/google-auth.js'
+import GoogleAuth from 'components/GoogleAuth.js'
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -55,7 +55,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Navigation(props) {
+export default function NavigationBar(props) {
 
   const classes = useStyles();
 

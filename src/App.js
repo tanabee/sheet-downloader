@@ -1,6 +1,6 @@
 import React from 'react';
-import Navigation from 'components/navigation-bar.js'
-import Sheet from 'components/sheet.js'
+import NavigationBar from 'components/NavigationBar.js'
+import Sheet from 'components/Sheet.js'
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 export default class App extends React.Component {
@@ -59,7 +59,7 @@ export default class App extends React.Component {
 
     return (
       <>
-        <Navigation
+        <NavigationBar
           onSignedIn={() => this.onSignedIn()}
           onChangeSearchBarValue={this.onChangeSearchBarValue}
         />
