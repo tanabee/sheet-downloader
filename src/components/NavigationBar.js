@@ -8,7 +8,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Code from '@material-ui/icons/Code';
 import Link from '@material-ui/core/Link';
 import Tooltip from '@material-ui/core/Tooltip';
-import GoogleAuth from 'components/GoogleAuth.js'
+import GoogleAuth from 'components/GoogleAuth'
 
 const useStyles = makeStyles(theme => ({
   grow: {
