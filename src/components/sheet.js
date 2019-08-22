@@ -68,7 +68,7 @@ export default function Sheet(props) {
   return (
     <div className={classes.root}>
       <Toolbar>
-        <Typography variant="h6">
+        <Typography variant="h5">
           {props.title}
         </Typography>
         <div className={classes.grow} />
