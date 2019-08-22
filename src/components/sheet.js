@@ -1,26 +1,31 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import DownloadButton from 'components/DownloadButton'
-import Typography from '@material-ui/core/Typography';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
-    marginTop: "80px"
+    marginTop: "80px",
+  },
+  paper: {
+    marginLeft: theme.spacing(3),
+    marginRight: theme.spacing(3),
   },
   tabs: {
     position: "fixed",
     bottom:"0",
     width:"100%"
   }
-});
+}));
 
 export default function Sheet(props) {
   const [selectedTab, setSelectedTab] = React.useState(0);
@@ -58,22 +63,28 @@ export default function Sheet(props) {
 
   return (
     <div className={classes.root}>
-      <Typography>
-        {props.title}
-      </Typography>
-      <DownloadButton
-        values={props.values}
-      />
-      <Table>
-        <TableHead>
-          <TableRow>
-            {header}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {list}
-        </TableBody>
-      </Table>
+      <Toolbar>
+        <Typography variant="h6">
+          {props.title}
+        </Typography>
+        <div className={classes.grow} />
+        <DownloadButton
+          className={classes.button}
+          values={props.values}
+        />
+      </Toolbar>
+      <Paper className={classes.paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              {header}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {list}
+          </TableBody>
+        </Table>
+      </Paper>
       <Paper square>
         <Tabs
           className={classes.tabs}

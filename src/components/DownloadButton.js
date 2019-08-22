@@ -90,47 +90,45 @@ export default function DownLoadButton(props) {
   };
 
   return (
-    <Grid container>
-      <Grid item xs={12} align="center">
-        <ButtonGroup variant="contained" color="primary" ref={anchorRef} aria-label="split button">
-          <Button onClick={download}>{buttons[selectedIndex].label}</Button>
-          <Button
-            color="primary"
-            size="small"
-            aria-owns={open ? 'menu-list-grow' : undefined}
-            aria-haspopup="true"
-            onClick={handleToggle}
+    <Grid item xs={12} align="right">
+      <ButtonGroup variant="contained" color="primary" ref={anchorRef} aria-label="split button">
+        <Button onClick={download}>{buttons[selectedIndex].label}</Button>
+        <Button
+          color="primary"
+          size="small"
+          aria-owns={open ? 'menu-list-grow' : undefined}
+          aria-haspopup="true"
+          onClick={handleToggle}
+        >
+          <ArrowDropDownIcon />
+        </Button>
+      </ButtonGroup>
+      <Popper open={open} anchorEl={anchorRef.current} transition disablePortal>
+        {({ TransitionProps, placement }) => (
+          <Grow
+            {...TransitionProps}
+            style={{
+              transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
+            }}
           >
-            <ArrowDropDownIcon />
-          </Button>
-        </ButtonGroup>
-        <Popper open={open} anchorEl={anchorRef.current} transition disablePortal>
-          {({ TransitionProps, placement }) => (
-            <Grow
-              {...TransitionProps}
-              style={{
-                transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
-              }}
-            >
-              <Paper id="menu-list-grow">
-                <ClickAwayListener onClickAway={handleClose}>
-                  <MenuList>
-                    {buttons.map((button, index) => (
-                      <MenuItem
-                        key={button.label}
-                        selected={index === selectedIndex}
-                        onClick={event => handleMenuItemClick(event, index)}
-                      >
-                        {button.label}
-                      </MenuItem>
-                    ))}
-                  </MenuList>
-                </ClickAwayListener>
-              </Paper>
-            </Grow>
-          )}
-        </Popper>
-      </Grid>
+            <Paper id="menu-list-grow">
+              <ClickAwayListener onClickAway={handleClose}>
+                <MenuList>
+                  {buttons.map((button, index) => (
+                    <MenuItem
+                      key={button.label}
+                      selected={index === selectedIndex}
+                      onClick={event => handleMenuItemClick(event, index)}
+                    >
+                      {button.label}
+                    </MenuItem>
+                  ))}
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
     </Grid>
   );
 }

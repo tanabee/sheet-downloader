@@ -62,7 +62,7 @@ export default function NavigationBar(props) {
   return (
     <AppBar color="default">
       <Toolbar>
-        <Typography className={classes.title}>
+        <Typography>
           Sheet Downloader
         </Typography>
         <div className={classes.search}>
