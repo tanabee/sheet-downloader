@@ -14,16 +14,20 @@ import Tab from '@material-ui/core/Tab';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    marginTop: "80px",
+    margin: "80px 0",
   },
-  paper: {
+  tableContainer: {
     marginLeft: theme.spacing(3),
     marginRight: theme.spacing(3),
   },
   tabs: {
     position: "fixed",
     bottom:"0",
-    width:"100%"
+    width:"100%",
+    backgroundColor: theme.palette.common.white,
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
+    borderTop: "1px solid #ddd"
   }
 }));
 
@@ -73,7 +77,7 @@ export default function Sheet(props) {
           values={props.values}
         />
       </Toolbar>
-      <Paper className={classes.paper}>
+      <Paper className={classes.tableContainer}>
         <Table>
           <TableHead>
             <TableRow>
@@ -85,17 +89,15 @@ export default function Sheet(props) {
           </TableBody>
         </Table>
       </Paper>
-      <Paper square>
-        <Tabs
-          className={classes.tabs}
-          value={selectedTab}
-          indicatorColor="primary"
-          textColor="primary"
-          onChange={handleChange}
-        >
-          {tabs}
-        </Tabs>
-      </Paper>
+      <Tabs
+        className={classes.tabs}
+        value={selectedTab}
+        indicatorColor="primary"
+        textColor="primary"
+        onChange={handleChange}
+      >
+        {tabs}
+      </Tabs>
     </div>
   );
 }
