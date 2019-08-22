@@ -1,6 +1,6 @@
 import React from 'react';
-import NavigationBar from 'components/NavigationBar'
-import Sheet from 'components/Sheet'
+import NavigationBar from 'components/NavigationBar';
+import Sheet from 'components/Sheet';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 export default class App extends React.Component {
@@ -10,7 +10,7 @@ export default class App extends React.Component {
       title: '',
       tabs: [],
       values: [],
-      loading: false
+      loading: false,
     };
   }
 
@@ -20,42 +20,49 @@ export default class App extends React.Component {
 
   onChangeSearchBarValue = event => {
     const url = event.target.value;
-    const match = url.match(/^https:\/\/docs.google.com\/spreadsheets\/d\/(.+)\/.*/);
+    const match = url.match(
+      /^https:\/\/docs.google.com\/spreadsheets\/d\/(.+)\/.*/,
+    );
     if (match) {
       this.fetchAndShowList(match[1]);
     }
-  }
+  };
 
-  fetchAndShowList = (spreadsheetId) => {
-    this.setState({ loading: true });
-    spreadsheetId = spreadsheetId || '1CxgDwe8Mdsi7ohc4oaVucC5c5vXlyZoPNfMdQho1Rl4';
-    window.gapi.client.sheets.spreadsheets.get({
-      spreadsheetId: spreadsheetId
-    }).then(response => {
-      const result = response.result;
-      const tabs = result.sheets.map((sheet)=> {
-        return { name: sheet.properties.title };
-      });
-
-      window.gapi.client.sheets.spreadsheets.values.get({
+  fetchAndShowList = spreadsheetId => {
+    this.setState({loading: true});
+    spreadsheetId =
+      spreadsheetId || '1CxgDwe8Mdsi7ohc4oaVucC5c5vXlyZoPNfMdQho1Rl4';
+    window.gapi.client.sheets.spreadsheets
+      .get({
         spreadsheetId: spreadsheetId,
-        range: 'A1:Z',
-      }).then(response => {
-        var range = response.result;
-        if (range.values.length > 0) {
-          this.setState({
-            title: result.properties.title,
-            tabs: tabs,
-            values: range.values,
-            loading: false
+      })
+      .then(response => {
+        const result = response.result;
+        const tabs = result.sheets.map(sheet => {
+          return {name: sheet.properties.title};
+        });
+
+        window.gapi.client.sheets.spreadsheets.values
+          .get({
+            spreadsheetId: spreadsheetId,
+            range: 'A1:Z',
+          })
+          .then(response => {
+            var range = response.result;
+            if (range.values.length > 0) {
+              this.setState({
+                title: result.properties.title,
+                tabs: tabs,
+                values: range.values,
+                loading: false,
+              });
+            }
           });
-        }
       });
-    });
-  }
+  };
 
   render() {
-    const progress = this.state.loading ?  <LinearProgress /> : '';
+    const progress = this.state.loading ? <LinearProgress /> : '';
 
     return (
       <>
@@ -63,7 +70,7 @@ export default class App extends React.Component {
           onSignedIn={() => this.onSignedIn()}
           onChangeSearchBarValue={this.onChangeSearchBarValue}
         />
-        { progress }
+        {progress}
         <Sheet
           title={this.state.title}
           tabs={this.state.tabs}

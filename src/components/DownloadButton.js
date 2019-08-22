@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
@@ -12,23 +12,18 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import yaml from 'js-yaml';
 
-const useStyles = makeStyles(theme => ({
-}));
-
 export default function DownLoadButton(props) {
-
-  const classes = useStyles();
   const buttons = [
     {
       label: 'DOWNLOAD AS JSON',
       contentType: 'application/json',
-      extension: 'json'
+      extension: 'json',
     },
     {
       label: 'DOWNLOAD AS YAML',
       contentType: 'application/yaml',
-      extension: 'yml'
-    }
+      extension: 'yml',
+    },
   ];
   const [open, setOpen] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
@@ -52,7 +47,7 @@ export default function DownLoadButton(props) {
   }
 
   function convertObjectToBlob(object, contentType) {
-    switch(contentType) {
+    switch (contentType) {
       case 'application/json': {
         const string = JSON.stringify(object, null, '\t');
         return new Blob([string], {type: contentType});
@@ -62,7 +57,7 @@ export default function DownLoadButton(props) {
         return new Blob([string], {type: contentType});
       }
       default: {
-        return null; 
+        return null;
       }
     }
   }
@@ -78,11 +73,14 @@ export default function DownLoadButton(props) {
       });
       return obj;
     });
-    
-    const file = convertObjectToBlob(object, buttons[selectedIndex].contentType);
+
+    const file = convertObjectToBlob(
+      object,
+      buttons[selectedIndex].contentType,
+    );
     if (!file) return;
 
-    const element = document.createElement("a");
+    const element = document.createElement('a');
     element.href = URL.createObjectURL(file);
     element.download = 'sheet.' + buttons[selectedIndex].extension;
     document.body.appendChild(element);
@@ -91,26 +89,29 @@ export default function DownLoadButton(props) {
 
   return (
     <Grid item xs={12} align="right">
-      <ButtonGroup variant="contained" color="primary" ref={anchorRef} aria-label="split button">
+      <ButtonGroup
+        variant="contained"
+        color="primary"
+        ref={anchorRef}
+        aria-label="split button">
         <Button onClick={download}>{buttons[selectedIndex].label}</Button>
         <Button
           color="primary"
           size="small"
           aria-owns={open ? 'menu-list-grow' : undefined}
           aria-haspopup="true"
-          onClick={handleToggle}
-        >
+          onClick={handleToggle}>
           <ArrowDropDownIcon />
         </Button>
       </ButtonGroup>
       <Popper open={open} anchorEl={anchorRef.current} transition disablePortal>
-        {({ TransitionProps, placement }) => (
+        {({TransitionProps, placement}) => (
           <Grow
             {...TransitionProps}
             style={{
-              transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
-            }}
-          >
+              transformOrigin:
+                placement === 'bottom' ? 'center top' : 'center bottom',
+            }}>
             <Paper id="menu-list-grow">
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList>
@@ -118,8 +119,7 @@ export default function DownLoadButton(props) {
                     <MenuItem
                       key={button.label}
                       selected={index === selectedIndex}
-                      onClick={event => handleMenuItemClick(event, index)}
-                    >
+                      onClick={event => handleMenuItemClick(event, index)}>
                       {button.label}
                     </MenuItem>
                   ))}

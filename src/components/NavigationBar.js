@@ -1,5 +1,5 @@
 import React from 'react';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import {fade, makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -8,7 +8,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Code from '@material-ui/icons/Code';
 import Link from '@material-ui/core/Link';
 import Tooltip from '@material-ui/core/Tooltip';
-import GoogleAuth from 'components/GoogleAuth'
+import GoogleAuth from 'components/GoogleAuth';
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.black, 0.10),
+    backgroundColor: fade(theme.palette.common.black, 0.1),
     '&:hover': {
       backgroundColor: fade(theme.palette.common.black, 0.15),
     },
@@ -56,15 +56,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function NavigationBar(props) {
-
   const classes = useStyles();
 
   return (
     <AppBar color="default">
       <Toolbar>
-        <Typography>
-          Sheet Downloader
-        </Typography>
+        <Typography>Sheet Downloader</Typography>
         <div className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchIcon />
@@ -75,18 +72,17 @@ export default function NavigationBar(props) {
               root: classes.inputRoot,
               input: classes.inputInput,
             }}
-            inputProps={{ 'aria-label': 'Search' }}
+            inputProps={{'aria-label': 'Search'}}
             onChange={props.onChangeSearchBarValue}
           />
         </div>
         <div className={classes.grow} />
         <Tooltip title="GitHub">
           <Link
-            href='https://github.com/tanabee/sheet-downloader'
-            target='_blank'
+            href="https://github.com/tanabee/sheet-downloader"
+            target="_blank"
             className={classes.link}
-            color='inherit'
-          >
+            color="inherit">
             <Code />
           </Link>
         </Tooltip>

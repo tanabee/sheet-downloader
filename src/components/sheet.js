@@ -1,6 +1,6 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import DownloadButton from 'components/DownloadButton'
+import {makeStyles} from '@material-ui/core/styles';
+import DownloadButton from 'components/DownloadButton';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -14,21 +14,21 @@ import Tab from '@material-ui/core/Tab';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    margin: "80px 0",
+    margin: '80px 0',
   },
   tableContainer: {
     marginLeft: theme.spacing(3),
     marginRight: theme.spacing(3),
   },
   tabs: {
-    position: "fixed",
-    bottom:"0",
-    width:"100%",
+    position: 'fixed',
+    bottom: '0',
+    width: '100%',
     backgroundColor: theme.palette.common.white,
     paddingLeft: theme.spacing(3),
     paddingRight: theme.spacing(3),
-    borderTop: "1px solid #ddd"
-  }
+    borderTop: '1px solid #ddd',
+  },
 }));
 
 export default function Sheet(props) {
@@ -45,48 +45,33 @@ export default function Sheet(props) {
 
   const headerValues = values.shift();
   const header = headerValues.map(value => {
-    return (
-      <TableCell key={value}>{value}</TableCell>
-    );
+    return <TableCell key={value}>{value}</TableCell>;
   });
 
   const list = values.map(row => {
     const rowValues = row.map((value, index) => {
-      return (
-        <TableCell key={index}>{value}</TableCell>
-      );
+      return <TableCell key={index}>{value}</TableCell>;
     });
     return <TableRow key={row[0]}>{rowValues}</TableRow>;
   });
-  
-  const tabs = props.tabs.map((tab) => {
-    return (
-      <Tab key={tab.name} label={tab.name} disabled />
-    );
+
+  const tabs = props.tabs.map(tab => {
+    return <Tab key={tab.name} label={tab.name} />;
   });
 
   return (
     <div className={classes.root}>
       <Toolbar>
-        <Typography variant="h5">
-          {props.title}
-        </Typography>
+        <Typography variant="h5">{props.title}</Typography>
         <div className={classes.grow} />
-        <DownloadButton
-          className={classes.button}
-          values={props.values}
-        />
+        <DownloadButton className={classes.button} values={props.values} />
       </Toolbar>
       <Paper className={classes.tableContainer}>
         <Table>
           <TableHead>
-            <TableRow>
-              {header}
-            </TableRow>
+            <TableRow>{header}</TableRow>
           </TableHead>
-          <TableBody>
-            {list}
-          </TableBody>
+          <TableBody>{list}</TableBody>
         </Table>
       </Paper>
       <Tabs
@@ -94,8 +79,7 @@ export default function Sheet(props) {
         value={selectedTab}
         indicatorColor="primary"
         textColor="primary"
-        onChange={handleChange}
-      >
+        onChange={handleChange}>
         {tabs}
       </Tabs>
     </div>
