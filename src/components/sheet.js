@@ -37,6 +37,7 @@ export default function Sheet(props) {
 
   function handleChange(event, newValue) {
     setSelectedTab(newValue);
+    props.onChangeTab(newValue);
   }
 
   let values = props.values.concat();

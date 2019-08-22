@@ -1,12 +1,12 @@
 import React from 'react';
 import NavigationBar from 'components/NavigationBar';
 import Sheet from 'components/Sheet';
-import LinearProgress from '@material-ui/core/LinearProgress';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      spreadSheetId: '1CxgDwe8Mdsi7ohc4oaVucC5c5vXlyZoPNfMdQho1Rl4',
       title: '',
       tabs: [],
       values: [],
@@ -16,6 +16,10 @@ export default class App extends React.Component {
 
   onSignedIn = () => {
     this.fetchAndShowList();
+  };
+
+  onChangeTab = tabIndex => {
+    this.fetchAndShowList(null, tabIndex);
   };
 
   onChangeSearchBarValue = event => {
@@ -28,10 +32,9 @@ export default class App extends React.Component {
     }
   };
 
-  fetchAndShowList = spreadsheetId => {
+  fetchAndShowList = (spreadsheetId, tabIndex) => {
     this.setState({loading: true});
-    spreadsheetId =
-      spreadsheetId || '1CxgDwe8Mdsi7ohc4oaVucC5c5vXlyZoPNfMdQho1Rl4';
+    spreadsheetId = spreadsheetId || this.state.spreadSheetId;
     window.gapi.client.sheets.spreadsheets
       .get({
         spreadsheetId: spreadsheetId,
@@ -45,12 +48,13 @@ export default class App extends React.Component {
         window.gapi.client.sheets.spreadsheets.values
           .get({
             spreadsheetId: spreadsheetId,
-            range: 'A1:Z',
+            range: tabIndex ? tabs[tabIndex].name + '!A1:Z' : 'A1:Z',
           })
           .then(response => {
             var range = response.result;
             if (range.values.length > 0) {
               this.setState({
+                spreadsheetId: spreadsheetId,
                 title: result.properties.title,
                 tabs: tabs,
                 values: range.values,
@@ -62,19 +66,18 @@ export default class App extends React.Component {
   };
 
   render() {
-    const progress = this.state.loading ? <LinearProgress /> : '';
-
     return (
       <>
         <NavigationBar
           onSignedIn={() => this.onSignedIn()}
           onChangeSearchBarValue={this.onChangeSearchBarValue}
+          loading={this.state.loading}
         />
-        {progress}
         <Sheet
           title={this.state.title}
           tabs={this.state.tabs}
           values={this.state.values}
+          onChangeTab={this.onChangeTab}
         />
       </>
     );

@@ -8,6 +8,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Code from '@material-ui/icons/Code';
 import Link from '@material-ui/core/Link';
 import Tooltip from '@material-ui/core/Tooltip';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import GoogleAuth from 'components/GoogleAuth';
 
 const useStyles = makeStyles(theme => ({
@@ -57,6 +58,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function NavigationBar(props) {
   const classes = useStyles();
+  const progress = props.loading && <LinearProgress />;
 
   return (
     <AppBar color="default">
@@ -88,6 +90,7 @@ export default function NavigationBar(props) {
         </Tooltip>
         <GoogleAuth onSignedIn={() => props.onSignedIn()} />
       </Toolbar>
+      {progress}
     </AppBar>
   );
 }
