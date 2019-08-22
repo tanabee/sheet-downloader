@@ -18,16 +18,21 @@ const useStyles = makeStyles(theme => ({
 export default function DownLoadButton(props) {
 
   const classes = useStyles();
-  const options = ['DOWNLOAD AS JSON', 'DOWNLOAD AS YAML'];
+  const buttons = [
+    {
+      label: 'DOWNLOAD AS JSON',
+      contentType: 'application/json',
+      extension: 'json'
+    },
+    {
+      label: 'DOWNLOAD AS YAML',
+      contentType: 'application/yaml',
+      extension: 'yml'
+    }
+  ];
   const [open, setOpen] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const anchorRef = React.useRef(null);
-
-  function handleClick() {
-    const yml = yaml.dump({a: 1, b: '1', c: { d: options }});
-    console.log(yml);
-    alert(`You clicked ${options[selectedIndex]}`);
-  }
 
   function handleMenuItemClick(event, index) {
     setSelectedIndex(index);
@@ -46,24 +51,40 @@ export default function DownLoadButton(props) {
     setOpen(false);
   }
 
-  const downloadJSON = () => {
+  function convertObjectToBlob(object, contentType) {
+    switch(contentType) {
+      case 'application/json': {
+        const string = JSON.stringify(object, null, '\t');
+        return new Blob([string], {type: contentType});
+      }
+      case 'application/yaml': {
+        const string = yaml.dump(object, null, '\t');
+        return new Blob([string], {type: contentType});
+      }
+      default: {
+        return null; 
+      }
+    }
+  }
+
+  const download = () => {
     let values = props.values.concat();
-
     if (values.length === 0) return;
-
     const keys = values.shift();
-    const json = values.map(value => {
+    const object = values.map(value => {
       var obj = {};
       value.forEach(function(element, i) {
         obj[keys[i]] = element;
       });
       return obj;
     });
-    const jsonString = JSON.stringify(json, null, '\t');
-    const file = new Blob([jsonString], {type: 'application/json'});
+    
+    const file = convertObjectToBlob(object, buttons[selectedIndex].contentType);
+    if (!file) return;
+
     const element = document.createElement("a");
     element.href = URL.createObjectURL(file);
-    element.download = "sheet.json";
+    element.download = 'sheet.' + buttons[selectedIndex].extension;
     document.body.appendChild(element);
     element.click();
   };
@@ -72,7 +93,7 @@ export default function DownLoadButton(props) {
     <Grid container>
       <Grid item xs={12} align="center">
         <ButtonGroup variant="contained" color="primary" ref={anchorRef} aria-label="split button">
-          <Button onClick={handleClick}>{options[selectedIndex]}</Button>
+          <Button onClick={download}>{buttons[selectedIndex].label}</Button>
           <Button
             color="primary"
             size="small"
@@ -94,13 +115,13 @@ export default function DownLoadButton(props) {
               <Paper id="menu-list-grow">
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList>
-                    {options.map((option, index) => (
+                    {buttons.map((button, index) => (
                       <MenuItem
-                        key={option}
+                        key={button.label}
                         selected={index === selectedIndex}
                         onClick={event => handleMenuItemClick(event, index)}
                       >
-                        {option}
+                        {button.label}
                       </MenuItem>
                     ))}
                   </MenuList>
